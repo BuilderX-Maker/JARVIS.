@@ -1,0 +1,145 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter), 'Inter Fallback', system-ui, sans-serif;
+  --font-heading: var(--font-orbitron), var(--font-inter), sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* JARVIS palette */
+  --color-cyan-glow: var(--cyan-glow);
+  --color-blue-glow: var(--blue-glow);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+:root {
+  color-scheme: dark;
+
+  /* Core — pure black base with cyan accent system */
+  --background: #0a0a0f;
+  --foreground: #e6f7ff;
+  --card: rgba(8, 18, 26, 0.6);
+  --card-foreground: #d4f4ff;
+  --popover: #0b121a;
+  --popover-foreground: #d4f4ff;
+  --primary: #00f0ff;
+  --primary-foreground: #04141a;
+  --secondary: rgba(0, 240, 255, 0.08);
+  --secondary-foreground: #9fe9ff;
+  --muted: rgba(255, 255, 255, 0.04);
+  --muted-foreground: #6b8a96;
+  --accent: rgba(0, 240, 255, 0.12);
+  --accent-foreground: #bff3ff;
+  --destructive: #ff5470;
+  --border: rgba(0, 240, 255, 0.18);
+  --input: rgba(0, 240, 255, 0.12);
+  --ring: #00f0ff;
+
+  --cyan-glow: #00f0ff;
+  --blue-glow: #2b8cff;
+
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    background-color: var(--background);
+    /* Prevent rubber-band / page scroll on mobile */
+    overscroll-behavior: none;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100dvh;
+  }
+
+  /* Hide scrollbars everywhere while keeping scroll functional */
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+@layer utilities {
+  /* Orbitron heading font (explicit so it always wins) */
+  .font-heading {
+    font-family: var(--font-orbitron), 'Orbitron Fallback', sans-serif;
+  }
+
+  /* Faint glowing blue HUD grid overlay */
+  .hud-grid {
+    background-image:
+      linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+    background-position: center;
+    mask-image: radial-gradient(circle at center, black 0%, transparent 78%);
+    -webkit-mask-image: radial-gradient(
+      circle at center,
+      black 0%,
+      transparent 78%
+    );
+  }
+
+  .text-glow {
+    text-shadow:
+      0 0 8px rgba(0, 240, 255, 0.6),
+      0 0 22px rgba(0, 240, 255, 0.35);
+  }
+
+  .text-glow-soft {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.45);
+  }
+
+  .glass {
+    background: rgba(10, 20, 28, 0.55);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+  }
+
+
+  .safe-top {
+    padding-top: max(env(safe-area-inset-top), 0.75rem);
+  }
+  .safe-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 0.75rem);
+  }
+}
